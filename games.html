@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Arcade Nexus — Unblocked Games</title>
+  <title>Arcade Nexus — Games</title>
   <meta name="description" content="Play unblocked games in a sleek green & blue dark theme." />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <style>
     :root {
       --bg: #0f1216;
-      --bg-elev: rgba(21, 26, 32, 0.4); /* 60% transparent background */
+      --bg-elev: rgba(21, 26, 32, 0.4);
       --text: #e6f1ff;
       --accent1: #00e676;
       --accent2: #00b0ff;
@@ -24,7 +24,10 @@
       font-family: 'Bebas Neue', sans-serif;
       background: var(--bg);
       color: var(--text);
-      overflow: hidden;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     header {
       position: sticky;
@@ -62,11 +65,11 @@
       display: flex;
       gap: 12px;
       margin-left: 20px;
-      background: transparent; /* no background to keep transparency */
-      backdrop-filter: none; /* nav container itself no blur, header has blur */
+      background: transparent;
+      backdrop-filter: none;
     }
     .btn {
-      background: transparent; /* remove bg color so particles show */
+      background: transparent;
       color: var(--text);
       padding: 8px 14px;
       border-radius: 8px;
@@ -74,6 +77,10 @@
       cursor: pointer;
       font-size: 18px;
       transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
     .btn:hover {
       background: rgba(0, 176, 255, 0.2);
@@ -88,14 +95,59 @@
       z-index: -1;
     }
     main {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 80px 100px;
-      height: 70vh;
-      font-size: 60px;
-      position: relative;
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
       z-index: 1;
+      position: relative;
+    }
+    .game-card {
+      background: rgba(21, 26, 32, 0.6);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 12px rgba(0, 176, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease;
+    }
+    .game-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 24px var(--accent2);
+    }
+    .game-title {
+      font-size: 28px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .game-desc {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #b0c4de;
+      flex-grow: 1;
+    }
+    .play-btn {
+      align-self: center;
+      padding: 12px 20px;
+      font-size: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #0f1216;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    .play-btn:hover {
+      background: linear-gradient(135deg, var(--accent2), var(--accent1));
+      color: white;
     }
     footer {
       background: rgba(21, 26, 32, 0.7);
@@ -106,10 +158,7 @@
       text-align: center;
       position: relative;
       z-index: 1;
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
+      margin-top: auto;
     }
   </style>
 </head>
@@ -119,14 +168,36 @@
     <div class="container">
       <div class="logo">Arcade <span class="text-accent">Nexus</span></div>
       <nav>
-        <button class="btn" onclick="window.location.href='/index.html'">Home</button>
-        <button class="btn" onclick="window.location.href='/games.html'">Games</button>
+        <a href="index.html" class="btn">Home</a>
+        <a href="games.html" class="btn">Games</a>
       </nav>
     </div>
   </header>
 
   <main>
-    Arcade <span class="text-accent">Nexus</span>
+    <article class="game-card">
+      <h2 class="game-title">Super Jump</h2>
+      <p class="game-desc">A fast-paced platformer with tricky jumps and power-ups.</p>
+      <a href="https://example.com/super-jump" target="_blank" class="play-btn" rel="noopener noreferrer">Play Now</a>
+    </article>
+
+    <article class="game-card">
+      <h2 class="game-title">Puzzle Mania</h2>
+      <p class="game-desc">Solve challenging puzzles and unlock new levels.</p>
+      <a href="https://example.com/puzzle-mania" target="_blank" class="play-btn" rel="noopener noreferrer">Play Now</a>
+    </article>
+
+    <article class="game-card">
+      <h2 class="game-title">Race Master</h2>
+      <p class="game-desc">High-speed racing action with customizable cars.</p>
+      <a href="https://example.com/race-master" target="_blank" class="play-btn" rel="noopener noreferrer">Play Now</a>
+    </article>
+
+    <article class="game-card">
+      <h2 class="game-title">Space Shooter</h2>
+      <p class="game-desc">Defend your spaceship against waves of enemies.</p>
+      <a href="https://example.com/space-shooter" target="_blank" class="play-btn" rel="noopener noreferrer">Play Now</a>
+    </article>
   </main>
 
   <footer>
