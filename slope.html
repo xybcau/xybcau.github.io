@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Play — Arcade Hub</title>
+  <meta name="description" content="Play clean, unblocked games with a simple layout.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='100%25' height='100%25' fill='%23272727'/%3E%3Ctext x='50%25' y='52%25' font-family='Arial,Helvetica,sans-serif' font-size='28' text-anchor='middle' fill='%23ffffff'%3EAH%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{
+      --bg:#2b2b2b;        /* dark grey */
+      --bg-elev:#242424;
+      --card:#2a2a2a;
+      --text:#f2f2f2;
+      --muted:#b7b7b7;
+      --accent:#00d4ff;
+      --accent-2:#9bff7a;
+      --radius:18px;
+      --maxw:1200px;
+      --shadow:0 8px 24px rgba(0,0,0,.35);
+      --adw:336px;         /* desktop right column width */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(to bottom, rgba(27,27,27,.95), rgba(27,27,27,.86));
+      border-bottom:1px solid rgba(255,255,255,.06);
+      backdrop-filter:saturate(1.1) blur(6px);
+    }
+    .nav{
+      max-width:var(--maxw); margin:0 auto; padding:10px 16px;
+      display:flex; align-items:center; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:800}
+    .brand-badge{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:grid; place-items:center; color:#0e0e0e; font-weight:900; box-shadow:var(--shadow)}
+    nav ul{display:flex; gap:6px; list-style:none; margin:0; padding:0}
+    nav a{color:var(--text); text-decoration:none; padding:8px 10px; border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.06)}
+    .spacer{flex:1}
+
+    /* Layout */
+    .wrap{max-width:var(--maxw); margin:16px auto; padding:0 16px}
+    .layout{
+      display:grid;
+      grid-template-columns: 1fr var(--adw);
+      gap:16px;
+      align-items:start;
+    }
+    /* Left column (game) */
+    .game-card{
+      background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .game-head{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:12px 12px; border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .game-title{font-weight:900; letter-spacing:.2px}
+    .controls{display:flex; gap:8px; flex-wrap:wrap}
+    .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.14); background:#1e1e1e; color:var(--text);
+      height:36px; padding:0 12px; border-radius:12px; font-weight:800; cursor:pointer;
+    }
+    .btn.primary{border:none; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#0e0e0e}
+    .btn:active{transform:translateY(1px)}
+    .game-box{
+      position:relative; background:#111;
+      /* 16:9 stage like Poki/CrazyGames */
+      aspect-ratio:16/9;
+      display:grid; place-items:center;
+    }
+    .game-box iframe{
+      width:100%; height:100%; border:0; display:block; background:#000;
+    }
+    .placeholder{
+      position:absolute; inset:0; display:grid; place-items:center;
+      color:var(--muted); text-align:center; padding:20px;
+    }
+    .game-foot{
+      padding:12px; display:flex; gap:12px; align-items:center; justify-content:space-between;
+      border-top:1px solid rgba(255,255,255,.06);
+      color:var(--muted); font-size:14px;
+    }
+
+    /* Right column (ad) */
+    .ad-col{
+      position:relative;
+    }
+    .ad-sticky{
+      position:sticky; top:72px;  /* below the sticky header */
+      background:var(--card); border:1px dashed rgba(255,255,255,.18); border-radius:16px;
+      padding:10px; box-shadow:var(--shadow);
+    }
+    .ad-label{font-size:12px; color:var(--muted); margin:4px 0 8px}
+    .ad-slot{
+      display:grid; place-items:center;
+      width:100%; min-height:280px; background:#1b1b1b; border-radius:12px;
+    }
+    /* sample responsive ad sizes text */
+    .ad-slot small{color:#8b8b8b}
+
+    /* Below game: description & related row */
+    .panel{
+      background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:14px; margin-top:16px;
+    }
+    .row{
+      display:grid; grid-auto-flow:column; grid-auto-columns:minmax(160px, 1fr);
+      gap:12px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x proximity;
+    }
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:14px; overflow:hidden; text-decoration:none; color:var(--text);
+      scroll-snap-align:start;
+    }
+    .thumb{aspect-ratio:1/1; background:#141414}
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .card-body{padding:8px 10px; font-size:14px; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .badge{
+      position:absolute; top:8px; left:8px; background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.12);
+      color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; font-weight:700; backdrop-filter: blur(6px);
+    }
+
+    /* Footer */
+    footer{margin-top:28px; padding:28px 16px; border-top:1px solid rgba(255,255,255,.08); background:#232323; color:var(--muted)}
+    .foot-wrap{max-width:var(--maxw); margin:0 auto; display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between}
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .layout{ grid-template-columns: 1fr; }
+      .ad-sticky{ position:static }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <a class="brand" href="/"><span class="brand-badge">A</span><span>Arcade&nbsp;Hub</span></a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/categories/">Categories</a></li>
+          <li><a href="/random/" id="randomLink">Random</a></li>
+        </ul>
+      </nav>
+      <div class="spacer"></div>
+      <a class="btn" href="/"><span>All Games</span></a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="layout">
+      <!-- LEFT: GAME -->
+      <article class="game-card">
+        <div class="game-head">
+          <div class="game-title" id="gameTitle">Game Title</div>
+          <div class="controls">
+            <button class="btn" id="reloadBtn">Reload</button>
+            <button class="btn primary" id="fsBtn">Fullscreen</button>
+          </div>
+        </div>
+
+        <div class="game-box" id="gameBox">
+          <!-- You can hardcode src below OR pass ?src=https://example.com/game/index.html -->
+          <iframe id="gameFrame" allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+          <div class="placeholder" id="ph">
+            <div>
+              <div style="font-size:42px; margin-bottom:6px">🎮</div>
+              <div style="font-weight:800">Add a game URL</div>
+              <div style="margin-top:6px; color:var(--muted)">Use <code>?src=FULL_GAME_URL</code> in the page URL<br/>or set the iframe <code>src</code> in the HTML.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-foot">
+          <div id="gameMeta">Unblocked • 1-player • Browser</div>
+          <a href="/report/" style="color:inherit; text-decoration:none">Report issue</a>
+        </div>
+      </article>
+
+      <!-- RIGHT: AD (sticky on desktop) -->
+      <aside class="ad-col" aria-label="Advertisement">
+        <div class="ad-sticky">
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-slot" id="adSlot">
+            <!-- Replace with your ad tag -->
+            <div>
+              <div style="font-weight:900; font-size:18px; text-align:center">336×280 / 300×250</div>
+              <small>Sticky right rail</small>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Description -->
+    <section class="panel" id="desc">
+      <h2 style="margin:0 0 8px">About this game</h2>
+      <p style="margin:0; color:var(--muted)">Short description goes here. Tips, controls, and a one-liner to keep it clean.</p>
+    </section>
+
+    <!-- Related like Poki/CrazyGames -->
+    <section class="panel">
+      <h2 style="margin:0 0 10px">You might also like</h2>
+      <div class="row">
+        <a class="card" href="/g/slope/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="Slope"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23141414'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' fill='%23ffffff'>Slope — 400×400</text></svg>">
+          </div>
+          <div class="card-body">Slope</div>
+        </a>
+
+        <a class="card" href="/g/retro-bowl/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="Retro Bowl"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23121212'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' fill='%23ffffff'>Retro Bowl — 400×400</text></svg>">
+          </div>
+          <div class="card-body">Retro Bowl</div>
+        </a>
+
+        <a class="card" href="/g/1v1-lol/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="1v1.LOL"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' fill='%23ffffff'>1v1.LOL — 400×400</text></svg>">
+          </div>
+          <div class="card-body">1v1.LOL</div>
+        </a>
+
+        <a class="card" href="/g/smash-karts/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="Smash Karts"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' fill='%23ffffff'>Smash Karts — 400×400</text></svg>">
+          </div>
+          <div class="card-body">Smash Karts</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-wrap">
+      <div>© <span id="yr"></span> Arcade Hub</div>
+      <div><a href="/privacy/" style="color:inherit; text-decoration:none">Privacy</a> · <a href="/contact/" style="color:inherit; text-decoration:none">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    const yrEl = document.getElementById('yr'); if (yrEl) yrEl.textContent = new Date().getFullYear();
+
+    // Fill iframe from ?src= or fallback srcdoc
+    const frame = document.getElementById('gameFrame');
+    const ph = document.getElementById('ph');
+    const params = new URLSearchParams(location.search);
+    const src = params.get('src'); // e.g., /games/slope/index.html
+    if (src) {
+      frame.src = src;
+      ph.remove();
+      // Optional: set title from slug
+      const t = document.getElementById('gameTitle');
+      if (t) t.textContent = decodeURIComponent(src.split('/').filter(Boolean).slice(-2, -1)[0] || 'Game');
+    } else {
+      // lightweight, safe placeholder
+      frame.srcdoc = `
+        <!doctype html><meta charset="utf-8">
+        <style>html,body{margin:0;height:100%;display:grid;place-items:center;background:#000;color:#bbb;font-family:system-ui,Segoe UI,Roboto,Arial}</style>
+        <div>Add <b>?src=FULL_GAME_URL</b> to load a game.</div>
+      `;
+    }
+
+    // Controls: Reload + Fullscreen
+    document.getElementById('reloadBtn').addEventListener('click', () => {
+      if (frame.src) frame.contentWindow.location.reload();
+      else frame.srcdoc = frame.srcdoc; // refresh placeholder
+    });
+
+    const fsBtn = document.getElementById('fsBtn');
+    const gameBox = document.getElementById('gameBox');
+    fsBtn.addEventListener('click', async () => {
+      try{
+        if (!document.fullscreenElement) {
+          await (gameBox.requestFullscreen?.() || gameBox.webkitRequestFullscreen?.());
+          fsBtn.textContent = 'Exit Fullscreen';
+        } else {
+          await (document.exitFullscreen?.() || document.webkitExitFullscreen?.());
+          fsBtn.textContent = 'Fullscreen';
+        }
+      }catch(e){ console.warn(e); }
+    });
+
+    // Random link (optional)
+    const randomLink = document.getElementById('randomLink');
+    if (randomLink){
+      const gameSlugs = ["/g/slope/","/g/drift-boss/","/g/bitlife/","/g/1v1-lol/"];
+      randomLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const slug = gameSlugs[Math.floor(Math.random()*gameSlugs.length)];
+        location.href = slug;
+      });
+    }
+
+    // NOTE: If your games need same-origin access, do NOT add sandbox to the iframe.
+    // If you want isolation, you can add:
+    // frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups');
+  </script>
+</body>
+</html>
