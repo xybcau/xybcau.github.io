@@ -5,80 +5,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arcade Nexus — Unblocked Games</title>
   <meta name="description" content="Play unblocked games in a sleek green & blue dark theme." />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <style>
-    :root{
+    :root {
       --bg: #0f1216;
-      --bg-elev: rgba(21,26,32,0.08); /* 60% more transparent */
+      --bg-elev: rgba(21, 26, 32, 0.2); /* even more transparent */
       --text: #e6f1ff;
       --accent1: #00e676;
       --accent2: #00b0ff;
     }
-    *{box-sizing:border-box; margin:0; padding:0}
-    body{
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
       font-family: 'Bebas Neue', sans-serif;
       background: var(--bg);
       color: var(--text);
-      overflow:hidden;
+      overflow: hidden;
     }
-    header{
-      position: sticky; top:0; z-index:100;
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       background: var(--bg-elev);
       border-bottom: 1px solid color-mix(in srgb, var(--accent2) 10%, transparent);
       padding: 16px;
     }
-    .container{
-      max-width:1200px;
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .logo{
-      margin-right:auto;
-      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.4px; font-size:24px;
+    .logo {
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      font-size: 24px;
     }
-    .text-accent{background: linear-gradient(135deg,var(--accent1),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    nav{display:flex; gap:12px; margin-left:20px;}
-    .btn{
-      background: rgba(15,18,22,0.0);
+    .text-accent {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    nav {
+      display: flex;
+      gap: 12px;
+      margin-left: 20px;
+      background: transparent;
+      backdrop-filter: none;
+    }
+    .btn {
+      background: transparent;
       color: var(--text);
-      padding:8px 14px;
-      border-radius:8px;
-      border:none;
-      cursor:pointer;
-      font-size:18px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none; /* removed border for max transparency */
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
     }
-    #particles-js{
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      z-index:-1;
+    .btn:hover {
+      background: rgba(0, 176, 255, 0.15); /* lighter hover effect */
     }
-    main{
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-      padding:80px 100px;
-      height:70vh;
-      font-size:60px;
-      position:relative;
-      z-index:1;
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
-    footer{
-      background: rgba(21,26,32,0.7);
+    main {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 80px 100px;
+      height: 70vh;
+      font-size: 60px;
+      position: relative;
+      z-index: 1;
+    }
+    footer {
+      background: rgba(21, 26, 32, 0.7);
       backdrop-filter: blur(8px);
-      border-top:1px solid #1b2430;
-      padding:20px;
-      color:var(--text);
-      text-align:center;
-      position:relative;
-      z-index:1;
+      border-top: 1px solid #1b2430;
+      padding: 20px;
+      color: var(--text);
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
-    a{color:inherit; text-decoration:none}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -107,26 +138,32 @@
     particlesJS('particles-js', {
       particles: {
         number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: ["#00e676", "#00b0ff"] },
-        shape: { type: "circle" },
+        color: { value: ['#00e676', '#00b0ff'] },
+        shape: { type: 'circle' },
         opacity: { value: 0.6, random: true },
         size: { value: 4, random: true },
-        line_linked: { enable: true, distance: 150, color: "#00b0ff", opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 3 }
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#00b0ff',
+          opacity: 0.4,
+          width: 1,
+        },
+        move: { enable: true, speed: 3 },
       },
       interactivity: {
-        detect_on: "canvas",
+        detect_on: 'canvas',
         events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" },
-          resize: true
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true,
         },
         modes: {
           repulse: { distance: 100, duration: 0.4 },
-          push: { particles_nb: 4 }
-        }
+          push: { particles_nb: 4 },
+        },
       },
-      retina_detect: true
+      retina_detect: true,
     });
   </script>
 </body>
