@@ -19,6 +19,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: 'Bebas Neue', sans-serif; /* Ensure Bebas Neue globally */
     }
     body {
       font-family: 'Bebas Neue', sans-serif;
@@ -30,6 +31,7 @@
       flex-direction: column;
     }
     header {
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for header */
       position: sticky;
       top: 0;
       z-index: 100;
@@ -45,6 +47,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for container */
     }
     .logo {
       margin-right: auto;
@@ -54,12 +57,14 @@
       font-weight: 800;
       letter-spacing: 0.4px;
       font-size: 24px;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for logo */
     }
     .text-accent {
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      font-family: 'Bebas Neue', sans-serif;
     }
     nav {
       display: flex;
@@ -67,6 +72,7 @@
       margin-left: 20px;
       background: transparent;
       backdrop-filter: none;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for nav */
     }
     .btn {
       background: transparent;
@@ -81,6 +87,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for buttons */
     }
     .btn:hover {
       background: rgba(0, 176, 255, 0.2);
@@ -104,6 +111,7 @@
       gap: 24px;
       z-index: 1;
       position: relative;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for main content */
     }
     .game-card {
       background: rgba(21, 26, 32, 0.6);
@@ -114,6 +122,7 @@
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.2s ease;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for cards */
     }
     .game-card:hover {
       transform: scale(1.05);
@@ -126,12 +135,14 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for game titles */
     }
     .game-desc {
       font-size: 16px;
       margin-bottom: 20px;
       color: #b0c4de;
       flex-grow: 1;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for description */
     }
     .play-btn {
       align-self: center;
@@ -144,6 +155,7 @@
       cursor: pointer;
       transition: background 0.3s ease;
       text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for play buttons */
     }
     .play-btn:hover {
       background: linear-gradient(135deg, var(--accent2), var(--accent1));
@@ -159,6 +171,7 @@
       position: relative;
       z-index: 1;
       margin-top: auto;
+      font-family: 'Bebas Neue', sans-serif; /* Explicit font for footer */
     }
   </style>
 </head>
