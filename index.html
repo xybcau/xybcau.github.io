@@ -3,354 +3,277 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Arcade Hub — Unblocked Games</title>
-  <meta name="description" content="Play fast, clean, and unblocked browser games. No clutter.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='100%25' height='100%25' fill='%23272727'/%3E%3Ctext x='50%25' y='52%25' font-family='Arial,Helvetica,sans-serif' font-size='28' text-anchor='middle' fill='%23ffffff'%3EAH%3C/text%3E%3C/svg%3E">
+  <title>Arcade Nexus — Unblocked Games</title>
+  <meta name="description" content="Play unblocked games in a sleek green & blue dark theme. Fast, clean, and mobile-friendly." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%2300e676'/%3E%3Cstop offset='1' stop-color='%2300b0ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23161a1e'/%3E%3Cpath d='M20 65 L50 15 L80 65 L68 65 L50 35 L32 65Z' fill='url(%23g)'/%3E%3C/svg%3E" />
   <style>
     :root{
-      --bg:#1f1f1f;
-      --bg-elev:#242424;
-      --card:#2a2a2a;
-      --text:#f2f2f2;
-      --muted:#b7b7b7;
-      --accent:#00d4ff;        /* change this if you want a different accent */
-      --accent-2:#9bff7a;
-      --radius:18px;
-      --gap:14px;
-      --maxw:1200px;
-      --shadow:0 8px 24px rgba(0,0,0,.35);
+      --bg: #0f1216;        /* dark grey background */
+      --bg-elev: #151a20;   /* cards */
+      --text: #e6f1ff;      /* primary text */
+      --muted: #a5b3c7;     /* secondary text */
+      --accent1: #00e676;   /* green */
+      --accent2: #00b0ff;   /* blue */
+      --ring: #2bffb6;      /* glow */
+      --danger: #ff4d4f;
+      --ok: #00e676;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:#2b2b2b; /* dark grey requested */
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      margin:0; font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background: var(--bg); color: var(--text); line-height:1.35;
     }
+    /* animated gradient accents */
+    .accent{background: linear-gradient(135deg,var(--accent1),var(--accent2));}
+    .text-accent{background: linear-gradient(135deg,var(--accent1),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
 
-    /* Header / Nav */
     header{
-      position:sticky; top:0; z-index:40;
-      background:linear-gradient(to bottom, rgba(27,27,27,.95), rgba(27,27,27,.86));
-      backdrop-filter:saturate(1.1) blur(6px);
-      border-bottom:1px solid rgba(255,255,255,.06);
+      position: sticky; top:0; z-index:100; backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 86%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent2) 10%, transparent);
     }
-    .nav{
-      max-width:var(--maxw); margin:0 auto; padding:10px 16px;
-      display:flex; align-items:center; gap:12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);
-      font-weight:700; letter-spacing:.2px;
-    }
-    .brand-badge{
-      width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:grid; place-items:center; color:#0e0e0e; font-weight:900;
-      box-shadow:var(--shadow);
-    }
-    .brand span{font-size:18px}
+    .container{max-width:1200px; margin:0 auto; padding: 16px;}
+    .nav{display:flex; align-items:center; gap:14px}
+    .logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.4px}
+    .logo-badge{width:34px;height:34px;border-radius:12px; display:grid; place-items:center; box-shadow:0 0 0 1px color-mix(in srgb, var(--accent2) 20%, transparent) inset, 0 10px 30px #0005}
+    .logo svg{display:block}
 
-    nav ul{display:flex; gap:6px; list-style:none; margin:0; padding:0}
-    nav a{
-      display:inline-block; padding:10px 12px; border-radius:12px;
-      color:var(--text); text-decoration:none; font-weight:600; font-size:14px;
-      transition:transform .15s ease, background-color .15s ease, color .15s ease;
-    }
-    nav a:hover{ background:rgba(255,255,255,.06); transform:translateY(-1px); }
-    nav a.active{ background:rgba(255,255,255,.10); }
-
-    .spacer{flex:1}
-    .search{
-      position:relative; width: min(360px, 45vw);
-    }
-    .search input{
-      width:100%; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.08);
-      background:var(--bg-elev); color:var(--text); padding:0 40px 0 12px; outline:none;
-      box-shadow: inset 0 0 0 9999px rgba(0,0,0,0); transition:border-color .15s ease;
-    }
-    .search input:focus{ border-color: rgba(255,255,255,.18); }
-    .search button{
-      position:absolute; right:4px; top:4px; height:32px; width:32px; border:0; border-radius:10px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#0e0e0e; font-weight:800; cursor:pointer;
-    }
-    .menu-btn{ display:none; }
-
-    /* Hero */
-    .hero{
-      max-width:var(--maxw); margin:20px auto 10px; padding:0 16px 6px;
-      display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:stretch;
-    }
-    .hero-card{
-      background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius);
-      padding:22px; box-shadow:var(--shadow);
-    }
-    .hero h1{ margin:0 0 8px; font-size: clamp(26px, 3.2vw, 40px); line-height:1.12; }
-    .hero p{ margin:0 0 16px; color:var(--muted) }
-    .hero-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .nav-links{margin-left:auto; display:flex; gap:8px}
     .btn{
-      appearance:none; border:0; border-radius:14px; height:44px; padding:0 16px;
-      font-weight:800; cursor:pointer;
+      appearance:none; border:0; background:var(--bg-elev); color:var(--text);
+      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      box-shadow: 0 1px 0 0 color-mix(in srgb, var(--accent2) 10%, transparent) inset, 0 10px 30px #0003;
     }
-    .btn-primary{ background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#0e0e0e; }
-    .btn-ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.15); }
+    .btn:hover{ transform: translateY(-1px);}
+    .btn.active,.btn:focus{ outline:none; box-shadow:0 0 0 3px color-mix(in srgb, var(--ring) 40%, transparent)}
+    .btn.primary{ background: linear-gradient(135deg, color-mix(in srgb, var(--accent1) 20%, #121212), color-mix(in srgb, var(--accent2) 30%, #121212));}
 
-    .callout{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
-      border:1px dashed rgba(255,255,255,.12); border-radius:var(--radius);
-      padding:16px; display:flex; gap:14px; align-items:center; margin-top:14px; color:var(--muted);
-    }
+    main{padding: 28px 0 80px}
 
-    /* Rows / Cards */
-    .section{
-      max-width:var(--maxw); margin:14px auto; padding:0 16px;
+    /* hero */
+    .hero{
+      display:grid; grid-template-columns: 1.15fr 1fr; gap:24px; align-items:center;
     }
-    .section h2{
-      margin:16px 0 10px; font-size:18px; letter-spacing:.2px;
-    }
-    .row{
-      display:grid; grid-auto-flow:column; grid-auto-columns: minmax(160px, 1fr);
-      gap:var(--gap); overflow-x:auto; padding-bottom:4px; scroll-snap-type:x proximity;
-    }
-    .row::-webkit-scrollbar{ height:8px }
-    .row::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.15); border-radius:999px }
     .card{
-      position:relative; background:var(--card); border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.06);
-      min-height:220px; display:flex; flex-direction:column; text-decoration:none; color:var(--text);
-      scroll-snap-align:start; transform:translateZ(0);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--bg-elev) 90%, transparent), color-mix(in srgb, #000 12%, var(--bg-elev)));
+      border: 1px solid color-mix(in srgb, var(--accent2) 12%, transparent);
+      border-radius: 18px; padding: 18px; box-shadow: 0 10px 40px #0006;
     }
-    .thumb{
-      aspect-ratio: 1 / 1; background:#1a1a1a; position:relative; overflow:hidden;
-    }
-    .thumb img{
-      width:100%; height:100%; object-fit:cover; display:block; background:#111;
-    }
-    .badge{
-      position:absolute; top:8px; left:8px; background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.12);
-      color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; font-weight:700;
-      backdrop-filter: blur(6px);
-    }
-    .card-body{ padding:10px 12px 12px; display:flex; gap:8px; align-items:center; }
-    .title{ font-weight:800; font-size:14px; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .pill{
-      font-size:12px; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.12); color:var(--muted);
-    }
-    .card:hover{ outline:2px solid rgba(255,255,255,.15); transform: translateY(-1px); transition: transform .15s ease, outline-color .15s ease }
+    .hero h1{font-size: clamp(28px, 3.6vw, 46px); margin: 10px 0 6px}
+    .hero p{color:var(--muted); margin: 0 0 16px}
 
-    /* Footer */
-    footer{
-      margin-top:28px; padding:28px 16px; border-top:1px solid rgba(255,255,255,.08);
-      background:#232323; color:var(--muted);
-    }
-    .foot-wrap{ max-width:var(--maxw); margin:0 auto; display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between }
+    .searchbar{display:flex; gap:10px; align-items:center; background:#0e1319; border:1px solid #1e2733; border-radius:14px; padding: 8px 10px}
+    .searchbar input{flex:1; background: transparent; color: var(--text); border:0; outline:none; font-size:16px}
 
-    /* Responsive */
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-      .search{ width: 52vw; }
-      nav ul{ display:none }
-      .menu-btn{ display:inline-flex; align-items:center; justify-content:center; height:36px; width:36px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text); }
-      .nav.open ul{ display:flex; position:absolute; top:56px; left:0; right:0; background:#1f1f1f; border-top:1px solid rgba(255,255,255,.08); padding:8px 12px; }
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#0e141a; border:1px solid #1e2733; color:var(--muted); font-weight:600}
+
+    /* sections */
+    section{display:none}
+    section.active{display:block}
+
+    /* games grid */
+    .toolbar{display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin: 0 0 16px}
+    .grid{display:grid; grid-template-columns: repeat(6, 1fr); gap:14px}
+    @media (max-width:1100px){ .grid{grid-template-columns: repeat(4, 1fr);} }
+    @media (max-width:720px){ .grid{grid-template-columns: repeat(2, 1fr);} .hero{grid-template-columns:1fr} }
+
+    .game{
+      display:flex; flex-direction:column; gap:10px; padding: 10px; border-radius:16px; background:#0f151c; border:1px solid #1c2733; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease, border .12s ease;
     }
+    .game:hover{transform: translateY(-2px); box-shadow: 0 10px 30px #0006; border-color: color-mix(in srgb, var(--accent2) 24%, #1c2733)}
+    .thumb{aspect-ratio: 16/10; width:100%; border-radius:12px; display:grid; place-items:center; position:relative; overflow:hidden;}
+    .thumb::before{content:""; position:absolute; inset:0; background: radial-gradient(120% 90% at 10% 0%, color-mix(in srgb, var(--accent1) 22%, transparent), transparent 55%), radial-gradient(100% 90% at 100% 100%, color-mix(in srgb, var(--accent2) 20%, transparent), transparent 60%);}
+    .game h4{margin:0; font-size:15px}
+    .tags{display:flex; gap:6px; flex-wrap:wrap}
+    .tag{font-size:12px; color:var(--muted); background:#0c1117; border:1px solid #1d2631; padding:4px 8px; border-radius:999px}
+
+    /* modal player */
+    dialog{ border:0; padding:0; background:transparent; }
+    .modal{ width:min(1100px, 92vw); height:min(80vh, 720px); border-radius:18px; background:#0d1218; border:1px solid #1c2733; overflow:hidden; display:grid; grid-template-rows:auto 1fr; }
+    .modal header{ position:relative; top:auto; backdrop-filter:none; background:#0e141a; border-bottom:1px solid #1c2733 }
+    .modal .title{ display:flex; align-items:center; justify-content:space-between; gap:10px }
+    .modal iframe{ width:100%; height:100%; border:0; background:#0b0f14 }
+    .close{ background:#11161d }
+
+    /* footer */
+    footer{border-top:1px solid #1b2430; padding:20px 0; color:var(--muted)}
+    a{color:inherit; text-decoration:none}
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <div class="nav" id="nav">
-      <a class="brand" href="/">
-        <span class="brand-badge">A</span>
-        <span>Arcade&nbsp;Hub</span>
-      </a>
-      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
-      <nav aria-label="Primary">
-        <ul>
-          <li><a class="active" href="/">Home</a></li>
-          <li><a href="/categories/">Categories</a></li>
-          <li><a href="/random/" id="randomLink">Random</a></li>
-          <li><a href="/about/">About</a></li>
-        </ul>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-badge accent" aria-hidden="true" style="border-radius:10px"></div>
+        <span>Arcade <span class="text-accent">Nexus</span></span>
+      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <button class="btn primary" data-route="home">Home</button>
+        <button class="btn" data-route="games">Games</button>
       </nav>
-      <div class="spacer"></div>
-      <form class="search" role="search" action="/search/">
-        <input name="q" type="search" placeholder="Search games…" aria-label="Search games" />
-        <button type="submit" aria-label="Search">⏎</button>
-      </form>
     </div>
   </header>
 
-  <!-- Hero -->
-  <main>
-    <section class="hero">
-      <div class="hero-card">
-        <h1>Play Clean, Unblocked Games.</h1>
-        <p>Fast loads, zero clutter. Jump into popular, multiplayer, and new releases — all in one place.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#popular">Play Popular</a>
-          <a class="btn btn-ghost" href="/categories/">Browse Categories</a>
-        </div>
-        <div class="callout">
-          <div style="font-weight:800; font-size:22px; line-height:1">⚡</div>
-          <div><b>Tip:</b> Add to bookmarks for one-click access during breaks.</div>
-        </div>
-      </div>
-      <div class="hero-card" aria-hidden="true">
-        <!-- Decorative placeholder panel -->
-        <div style="height:100%; display:grid; place-items:center; border-radius:12px; background:radial-gradient(1200px 400px at 10% -10%, rgba(0,212,255,.18), transparent), radial-gradient(800px 300px at 110% 110%, rgba(155,255,122,.12), transparent); border:1px solid rgba(255,255,255,.06)">
-          <div style="display:grid; gap:10px; text-align:center">
-            <div style="font-size:48px">🎮</div>
-            <div style="color:var(--muted)">Smooth. Minimal. Unblocked.</div>
+  <main class="container">
+    <!-- HOME -->
+    <section id="home" class="active">
+      <div class="hero">
+        <div class="card">
+          <h1>Unblocked fun, <span class="text-accent">zero clutter</span>.</h1>
+          <p>Fast loads, clean UI, and a slick green–blue dark theme. Bookmark this hub and dive into your favorites at school, work, or wherever.</p>
+          <div class="searchbar" role="search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3" stroke="#7ea4c7" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="#7ea4c7" stroke-width="2" fill="none"/></svg>
+            <input id="homeSearch" type="search" placeholder="Search games…" autocomplete="off" />
+            <button class="btn" onclick="goToGamesFromSearch()">Search</button>
           </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <span class="pill">No logins</span>
+            <span class="pill">Mobile friendly</span>
+            <span class="pill">Fast embeds</span>
+          </div>
+        </div>
+        <div class="card" aria-hidden="true">
+          <div class="thumb" style="aspect-ratio:16/9; border-radius:14px;">
+            <svg width="96" height="96" viewBox="0 0 24 24" fill="none" style="opacity:.9"><path d="M8 5h8a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3Z" stroke="url(#a)" stroke-width="2"/><path d="M10 9v6l6-3-6-3Z" fill="url(#a)"/><defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e676"/><stop offset="1" stop-color="#00b0ff"/></linearGradient></defs></svg>
+          </div>
+          <p style="color:var(--muted); margin:10px 0 0">Tip: Click <b>Games</b> to browse, then select any card to play instantly in a pop-up player.</p>
         </div>
       </div>
     </section>
 
-    <!-- Sections -->
-    <section class="section" id="popular">
-      <h2>Popular</h2>
-      <div class="row">
-        <!-- Card template (duplicate & change href/title/badges as needed) -->
-        <a class="card" href="slope.html">
-          <div class="thumb">
-            <img loading="lazy" width="400" height="400" alt="Slope"
-                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23141414'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Slope — 400×400</text></svg>">
-            <span class="badge">HOT</span>
-          </div>
-          <div class="card-body">
-            <div class="title">Slope</div>
-            <div class="pill">Arcade</div>
-          </div>
-        </a>
-
-        <a class="card" href="/g/drift-boss/">
-          <div class="thumb">
-            <img loading="lazy" width="400" height="400" alt="Drift Boss"
-                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23131313'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Drift Boss — 400×400</text></svg>">
-            <span class="badge">TRENDING</span>
-          </div>
-          <div class="card-body">
-            <div class="title">Drift Boss</div>
-            <div class="pill">Driving</div>
-          </div>
-        </a>
-
-        <a class="card" href="/g/bitlife/">
-          <div class="thumb">
-            <img loading="lazy" width="400" height="400" alt="BitLife"
-                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>BitLife — 400×400</text></svg>">
-          </div>
-          <div class="card-body">
-            <div class="title">BitLife</div>
-            <div class="pill">Sim</div>
-          </div>
-        </a>
-
-        <a class="card" href="/g/1v1-lol/">
-          <div class="thumb">
-            <img loading="lazy" width="400" height="400" alt="1v1.LOL"
-                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>1v1.LOL — 400×400</text></svg>">
-          </div>
-          <div class="card-body">
-            <div class="title">1v1.LOL</div>
-            <div class="pill">Shooter</div>
-          </div>
-        </a>
+    <!-- GAMES -->
+    <section id="games">
+      <div class="toolbar">
+        <div class="searchbar" role="search" style="flex:1; max-width:520px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3" stroke="#7ea4c7" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="#7ea4c7" stroke-width="2" fill="none"/></svg>
+          <input id="gameSearch" type="search" placeholder="Search games… (e.g., slope, moto x3m)" autocomplete="off" />
+        </div>
+        <div style="display:flex; gap:10px">
+          <select id="sort" class="btn" aria-label="Sort">
+            <option value="popular">Most Popular</option>
+            <option value="az">A → Z</option>
+            <option value="new">Newest</option>
+          </select>
+          <button class="btn" id="clearFilters">Clear</button>
+        </div>
       </div>
-    </section>
 
-    <section class="section">
-      <h2>New</h2>
-      <div class="row">
-        <a class="card" href="/g/stack-ball/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Stack Ball"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23121212'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Stack Ball — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Stack Ball</div><div class="pill">Arcade</div></div>
-        </a>
-        <a class="card" href="/g/retro-bowl/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Retro Bowl"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Retro Bowl — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Retro Bowl</div><div class="pill">Sports</div></div>
-        </a>
-        <a class="card" href="/g/polytrack/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Polytrack"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Polytrack — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Polytrack</div><div class="pill">Racing</div></div>
-        </a>
-        <a class="card" href="/g/cell-machine/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Cell Machine"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23141414'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Cell Machine — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Cell Machine</div><div class="pill">Puzzle</div></div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>2-Player & Multiplayer</h2>
-      <div class="row">
-        <a class="card" href="/g/rooftop-snipers/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Rooftop Snipers"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Rooftop Snipers — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Rooftop Snipers</div><div class="pill">2-Player</div></div>
-        </a>
-        <a class="card" href="/g/football-legends/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Football Legends"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23121212'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Football Legends — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Football Legends</div><div class="pill">2-Player</div></div>
-        </a>
-        <a class="card" href="/g/smash-karts/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Smash Karts"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Smash Karts — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Smash Karts</div><div class="pill">Multiplayer</div></div>
-        </a>
-        <a class="card" href="/g/tag/">
-          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Tag"
-            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23131313'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Tag — 400×400</text></svg>"></div>
-          <div class="card-body"><div class="title">Tag</div><div class="pill">Multiplayer</div></div>
-        </a>
-      </div>
+      <div id="gamesGrid" class="grid" aria-live="polite"></div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
-    <div class="foot-wrap">
-      <div>© <span id="yr"></span> Arcade Hub. Clean, unblocked fun.</div>
-      <div>
-        <a href="/privacy/" style="color:inherit; text-decoration:none">Privacy</a> ·
-        <a href="/contact/" style="color:inherit; text-decoration:none">Contact</a>
-      </div>
+    <div class="container">
+      <span>© <span id="year"></span> Arcade Nexus</span>
+      <span style="float:right">Theme: <span class="text-accent">Green × Blue</span> on dark grey</span>
     </div>
   </footer>
 
+  <!-- Modal Player -->
+  <dialog id="player">
+    <div class="modal">
+      <header class="container">
+        <div class="title">
+          <strong id="gameTitle">Loading…</strong>
+          <button class="btn close" onclick="closePlayer()">Close</button>
+        </div>
+      </header>
+      <iframe id="gameFrame" src="about:blank" allow="fullscreen; gamepad; accelerometer; clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </dialog>
+
   <script>
-    // Simple enhancements (no frameworks)
-    const yrEl = document.getElementById('yr'); if (yrEl) yrEl.textContent = new Date().getFullYear();
-
-    // Mobile menu toggle
-    const nav = document.getElementById('nav'), btn = document.getElementById('menuBtn');
-    if (btn) btn.addEventListener('click', () => nav.classList.toggle('open'));
-
-    // Random link (add your actual game slugs here)
-    const randomLink = document.getElementById('randomLink');
-    const gameSlugs = [
-      "/g/slope/", "/g/drift-boss/", "/g/bitlife/", "/g/1v1-lol/",
-      "/g/stack-ball/", "/g/retro-bowl/", "/g/polytrack/", "/g/cell-machine/",
-      "/g/rooftop-snipers/", "/g/football-legends/", "/g/smash-karts/", "/g/tag/"
-    ];
-    if (randomLink) randomLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      const slug = gameSlugs[Math.floor(Math.random()*gameSlugs.length)];
-      window.location.href = slug;
-    });
-
-    // Reduce motion for users that prefer it (softens hover lift)
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const style = document.createElement('style');
-      style.textContent = '.card{transition:none !important} nav a{transition:none !important}';
-      document.head.appendChild(style);
+    // ---------- Router (Home/Games) ----------
+    const sections = {
+      home: document.getElementById('home'),
+      games: document.getElementById('games')
+    };
+    const routeBtns = Array.from(document.querySelectorAll('[data-route]'));
+    function setRoute(route){
+      for(const key in sections){ sections[key].classList.toggle('active', key===route); }
+      routeBtns.forEach(b=>b.classList.toggle('primary', b.dataset.route===route));
+      history.replaceState(null, '', `#${route}`);
+      if(route==='games' && !bootstrapped){ bootstrapGames(); }
     }
+    routeBtns.forEach(b=> b.addEventListener('click', ()=> setRoute(b.dataset.route)) );
+    window.addEventListener('hashchange', ()=> setRoute((location.hash||'#home').slice(1)) );
+
+    // ---------- Games data (edit these to add your own!) ----------
+    const games = [
+      { id:'slope',    name:'Slope',        url:'https://example.com/slope/index.html',        tags:['3D','Runner'],            popular:95, added:'2024-09-01' },
+      { id:'motox3m',  name:'Moto X3M',     url:'https://example.com/motox3m/index.html',     tags:['Racing','Bikes'],         popular:92, added:'2025-01-12' },
+      { id:'retro-bowl',name:'Retro Bowl',  url:'https://example.com/retrobowl/index.html',   tags:['Sports','Retro'],         popular:98, added:'2024-05-20' },
+      { id:'cookie',   name:'Cookie Clicker',url:'https://example.com/cookie/index.html',     tags:['Idle','Clicker'],        popular:90, added:'2024-02-14' },
+      { id:'tunnel',   name:'Tunnel Rush',  url:'https://example.com/tunnel/index.html',      tags:['Arcade','Reflex'],       popular:88, added:'2024-11-05' },
+      { id:'bitlife',  name:'BitLife',      url:'https://example.com/bitlife/index.html',     tags:['Sim','Life'],            popular:86, added:'2023-12-08' },
+      { id:'stack',    name:'Stack',        url:'https://example.com/stack/index.html',       tags:['Arcade','One-tap'],      popular:80, added:'2025-06-18' },
+      { id:'geometry', name:'Geometry Dash',url:'https://example.com/geometrydash/index.html',tags:['Rhythm','Hard'],         popular:99, added:'2024-03-10' },
+      { id:'drift',    name:'Drift Boss',   url:'https://example.com/driftboss/index.html',   tags:['Driving','Casual'],      popular:84, added:'2024-07-22' },
+      { id:'vex7',     name:'Vex 7',        url:'https://example.com/vex7/index.html',        tags:['Platformer','Skill'],    popular:82, added:'2024-10-09' },
+    ];
+
+    // ---------- Render games ----------
+    const grid = document.getElementById('gamesGrid');
+    let bootstrapped = false;
+    function bootstrapGames(){
+      if(bootstrapped) return; bootstrapped = true; render();
+    }
+
+    function render(){
+      const q = (document.getElementById('gameSearch').value||'').trim().toLowerCase();
+      const sortBy = document.getElementById('sort').value;
+      let list = games.filter(g => !q || g.name.toLowerCase().includes(q) || g.tags.some(t=>t.toLowerCase().includes(q)) );
+      list.sort((a,b)=> sortBy==='az' ? a.name.localeCompare(b.name) : sortBy==='new' ? (new Date(b.added)-new Date(a.added)) : b.popular - a.popular);
+      grid.innerHTML = '';
+      for(const g of list){
+        const card = document.createElement('button');
+        card.className = 'game';
+        card.innerHTML = `
+          <div class="thumb">
+            <svg viewBox="0 0 24 24" width="64" height="64" aria-hidden="true">
+              <defs><linearGradient id="grad" x1="0" x2="1"><stop stop-color="var(--accent1)"/><stop offset="1" stop-color="var(--accent2)"/></linearGradient></defs>
+              <rect x="2" y="3" width="20" height="14" rx="3" stroke="url(#grad)" fill="none" stroke-width="2"/>
+              <circle cx="9" cy="10" r="2" fill="url(#grad)"/>
+              <rect x="13.5" y="8.5" width="4" height="3" rx="1" fill="url(#grad)"/>
+            </svg>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px">
+            <h4>${g.name}</h4>
+            <span class="tag" title="Popularity">★ ${g.popular}</span>
+          </div>
+          <div class="tags">${g.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        `;
+        card.addEventListener('click', ()=> openPlayer(g));
+        grid.appendChild(card);
+      }
+    }
+
+    // ---------- Player ----------
+    const dlg = document.getElementById('player');
+    const frame = document.getElementById('gameFrame');
+    const title = document.getElementById('gameTitle');
+    function openPlayer(game){
+      title.textContent = game.name;
+      frame.src = game.url;
+      if(typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open','');
+    }
+    function closePlayer(){ frame.src='about:blank'; dlg.close && dlg.close(); dlg.removeAttribute('open'); }
+
+    // ---------- UI wiring ----------
+    document.getElementById('gameSearch').addEventListener('input', render);
+    document.getElementById('sort').addEventListener('change', render);
+    document.getElementById('clearFilters').addEventListener('click', ()=>{ document.getElementById('gameSearch').value=''; document.getElementById('sort').value='popular'; render(); });
+
+    // Home search -> Games page
+    function goToGamesFromSearch(){ const q = document.getElementById('homeSearch').value; setRoute('games'); requestAnimationFrame(()=>{ document.getElementById('gameSearch').value = q; render(); }); }
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initial route
+    setRoute((location.hash||'#home').slice(1));
   </script>
 </body>
 </html>
