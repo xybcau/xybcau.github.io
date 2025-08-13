@@ -28,10 +28,19 @@
       border-bottom: 1px solid color-mix(in srgb, var(--accent2) 10%, transparent);
       padding: 16px;
     }
-    .container{max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;}
-    .logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.4px; font-size:24px;}
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .logo{
+      margin-right:auto;
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.4px; font-size:24px;
+    }
     .text-accent{background: linear-gradient(135deg,var(--accent1),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    nav{display:flex; gap:12px}
+    nav{display:flex; gap:12px; margin-left:20px;}
     .btn{
       background: var(--bg);
       color: var(--text);
@@ -48,12 +57,14 @@
       z-index:-1;
     }
     main{
-      display:flex; align-items:center; justify-content:center;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      padding:40px;
       height:70vh;
       font-size:60px;
-      text-align:center;
-      z-index:1;
       position:relative;
+      z-index:1;
     }
     footer{
       background: var(--bg-elev);
@@ -98,7 +109,7 @@
         opacity: { value: 0.6, random: true },
         size: { value: 4, random: true },
         line_linked: { enable: true, distance: 150, color: "#00b0ff", opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 3, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+        move: { enable: true, speed: 3 }
       },
       interactivity: {
         detect_on: "canvas",
