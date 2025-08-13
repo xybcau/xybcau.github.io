@@ -10,7 +10,7 @@
   <style>
     :root {
       --bg: #0f1216;
-      --bg-elev: rgba(21, 26, 32, 0.5); /* More transparent for blur */
+      --bg-elev: rgba(21, 26, 32, 0.2); /* even more transparent */
       --text: #e6f1ff;
       --accent1: #00e676;
       --accent2: #00b0ff;
@@ -62,22 +62,21 @@
       display: flex;
       gap: 12px;
       margin-left: 20px;
-      background: transparent; /* no background to keep transparency */
-      backdrop-filter: none; /* nav container itself no blur, header has blur */
+      background: transparent;
+      backdrop-filter: none;
     }
     .btn {
-      background: transparent; /* remove bg color so particles show */
+      background: transparent;
       color: var(--text);
       padding: 8px 14px;
       border-radius: 8px;
-      border: 1px solid rgba(230, 241, 255, 0.3);
+      border: none; /* removed border for max transparency */
       cursor: pointer;
       font-size: 18px;
       transition: background-color 0.3s ease;
     }
     .btn:hover {
-      background: rgba(0, 176, 255, 0.2);
-      border-color: var(--accent2);
+      background: rgba(0, 176, 255, 0.15); /* lighter hover effect */
     }
     #particles-js {
       position: fixed;
