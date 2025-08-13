@@ -1,1 +1,356 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arcade Hub — Unblocked Games</title>
+  <meta name="description" content="Play fast, clean, and unblocked browser games. No clutter.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='100%25' height='100%25' fill='%23272727'/%3E%3Ctext x='50%25' y='52%25' font-family='Arial,Helvetica,sans-serif' font-size='28' text-anchor='middle' fill='%23ffffff'%3EAH%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{
+      --bg:#1f1f1f;
+      --bg-elev:#242424;
+      --card:#2a2a2a;
+      --text:#f2f2f2;
+      --muted:#b7b7b7;
+      --accent:#00d4ff;        /* change this if you want a different accent */
+      --accent-2:#9bff7a;
+      --radius:18px;
+      --gap:14px;
+      --maxw:1200px;
+      --shadow:0 8px 24px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:#2b2b2b; /* dark grey requested */
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header / Nav */
+    header{
+      position:sticky; top:0; z-index:40;
+      background:linear-gradient(to bottom, rgba(27,27,27,.95), rgba(27,27,27,.86));
+      backdrop-filter:saturate(1.1) blur(6px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      max-width:var(--maxw); margin:0 auto; padding:10px 16px;
+      display:flex; align-items:center; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);
+      font-weight:700; letter-spacing:.2px;
+    }
+    .brand-badge{
+      width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid; place-items:center; color:#0e0e0e; font-weight:900;
+      box-shadow:var(--shadow);
+    }
+    .brand span{font-size:18px}
+
+    nav ul{display:flex; gap:6px; list-style:none; margin:0; padding:0}
+    nav a{
+      display:inline-block; padding:10px 12px; border-radius:12px;
+      color:var(--text); text-decoration:none; font-weight:600; font-size:14px;
+      transition:transform .15s ease, background-color .15s ease, color .15s ease;
+    }
+    nav a:hover{ background:rgba(255,255,255,.06); transform:translateY(-1px); }
+    nav a.active{ background:rgba(255,255,255,.10); }
+
+    .spacer{flex:1}
+    .search{
+      position:relative; width: min(360px, 45vw);
+    }
+    .search input{
+      width:100%; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.08);
+      background:var(--bg-elev); color:var(--text); padding:0 40px 0 12px; outline:none;
+      box-shadow: inset 0 0 0 9999px rgba(0,0,0,0); transition:border-color .15s ease;
+    }
+    .search input:focus{ border-color: rgba(255,255,255,.18); }
+    .search button{
+      position:absolute; right:4px; top:4px; height:32px; width:32px; border:0; border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#0e0e0e; font-weight:800; cursor:pointer;
+    }
+    .menu-btn{ display:none; }
+
+    /* Hero */
+    .hero{
+      max-width:var(--maxw); margin:20px auto 10px; padding:0 16px 6px;
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:stretch;
+    }
+    .hero-card{
+      background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius);
+      padding:22px; box-shadow:var(--shadow);
+    }
+    .hero h1{ margin:0 0 8px; font-size: clamp(26px, 3.2vw, 40px); line-height:1.12; }
+    .hero p{ margin:0 0 16px; color:var(--muted) }
+    .hero-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn{
+      appearance:none; border:0; border-radius:14px; height:44px; padding:0 16px;
+      font-weight:800; cursor:pointer;
+    }
+    .btn-primary{ background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#0e0e0e; }
+    .btn-ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.15); }
+
+    .callout{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
+      border:1px dashed rgba(255,255,255,.12); border-radius:var(--radius);
+      padding:16px; display:flex; gap:14px; align-items:center; margin-top:14px; color:var(--muted);
+    }
+
+    /* Rows / Cards */
+    .section{
+      max-width:var(--maxw); margin:14px auto; padding:0 16px;
+    }
+    .section h2{
+      margin:16px 0 10px; font-size:18px; letter-spacing:.2px;
+    }
+    .row{
+      display:grid; grid-auto-flow:column; grid-auto-columns: minmax(160px, 1fr);
+      gap:var(--gap); overflow-x:auto; padding-bottom:4px; scroll-snap-type:x proximity;
+    }
+    .row::-webkit-scrollbar{ height:8px }
+    .row::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.15); border-radius:999px }
+    .card{
+      position:relative; background:var(--card); border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.06);
+      min-height:220px; display:flex; flex-direction:column; text-decoration:none; color:var(--text);
+      scroll-snap-align:start; transform:translateZ(0);
+    }
+    .thumb{
+      aspect-ratio: 1 / 1; background:#1a1a1a; position:relative; overflow:hidden;
+    }
+    .thumb img{
+      width:100%; height:100%; object-fit:cover; display:block; background:#111;
+    }
+    .badge{
+      position:absolute; top:8px; left:8px; background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.12);
+      color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; font-weight:700;
+      backdrop-filter: blur(6px);
+    }
+    .card-body{ padding:10px 12px 12px; display:flex; gap:8px; align-items:center; }
+    .title{ font-weight:800; font-size:14px; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .pill{
+      font-size:12px; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.12); color:var(--muted);
+    }
+    .card:hover{ outline:2px solid rgba(255,255,255,.15); transform: translateY(-1px); transition: transform .15s ease, outline-color .15s ease }
+
+    /* Footer */
+    footer{
+      margin-top:28px; padding:28px 16px; border-top:1px solid rgba(255,255,255,.08);
+      background:#232323; color:var(--muted);
+    }
+    .foot-wrap{ max-width:var(--maxw); margin:0 auto; display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+      .search{ width: 52vw; }
+      nav ul{ display:none }
+      .menu-btn{ display:inline-flex; align-items:center; justify-content:center; height:36px; width:36px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text); }
+      .nav.open ul{ display:flex; position:absolute; top:56px; left:0; right:0; background:#1f1f1f; border-top:1px solid rgba(255,255,255,.08); padding:8px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav" id="nav">
+      <a class="brand" href="/">
+        <span class="brand-badge">A</span>
+        <span>Arcade&nbsp;Hub</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a class="active" href="/">Home</a></li>
+          <li><a href="/categories/">Categories</a></li>
+          <li><a href="/random/" id="randomLink">Random</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </nav>
+      <div class="spacer"></div>
+      <form class="search" role="search" action="/search/">
+        <input name="q" type="search" placeholder="Search games…" aria-label="Search games" />
+        <button type="submit" aria-label="Search">⏎</button>
+      </form>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Play Clean, Unblocked Games.</h1>
+        <p>Fast loads, zero clutter. Jump into popular, multiplayer, and new releases — all in one place.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#popular">Play Popular</a>
+          <a class="btn btn-ghost" href="/categories/">Browse Categories</a>
+        </div>
+        <div class="callout">
+          <div style="font-weight:800; font-size:22px; line-height:1">⚡</div>
+          <div><b>Tip:</b> Add to bookmarks for one-click access during breaks.</div>
+        </div>
+      </div>
+      <div class="hero-card" aria-hidden="true">
+        <!-- Decorative placeholder panel -->
+        <div style="height:100%; display:grid; place-items:center; border-radius:12px; background:radial-gradient(1200px 400px at 10% -10%, rgba(0,212,255,.18), transparent), radial-gradient(800px 300px at 110% 110%, rgba(155,255,122,.12), transparent); border:1px solid rgba(255,255,255,.06)">
+          <div style="display:grid; gap:10px; text-align:center">
+            <div style="font-size:48px">🎮</div>
+            <div style="color:var(--muted)">Smooth. Minimal. Unblocked.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sections -->
+    <section class="section" id="popular">
+      <h2>Popular</h2>
+      <div class="row">
+        <!-- Card template (duplicate & change href/title/badges as needed) -->
+        <a class="card" href="/g/slope/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="Slope"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23141414'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Slope — 400×400</text></svg>">
+            <span class="badge">HOT</span>
+          </div>
+          <div class="card-body">
+            <div class="title">Slope</div>
+            <div class="pill">Arcade</div>
+          </div>
+        </a>
+
+        <a class="card" href="/g/drift-boss/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="Drift Boss"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23131313'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Drift Boss — 400×400</text></svg>">
+            <span class="badge">TRENDING</span>
+          </div>
+          <div class="card-body">
+            <div class="title">Drift Boss</div>
+            <div class="pill">Driving</div>
+          </div>
+        </a>
+
+        <a class="card" href="/g/bitlife/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="BitLife"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>BitLife — 400×400</text></svg>">
+          </div>
+          <div class="card-body">
+            <div class="title">BitLife</div>
+            <div class="pill">Sim</div>
+          </div>
+        </a>
+
+        <a class="card" href="/g/1v1-lol/">
+          <div class="thumb">
+            <img loading="lazy" width="400" height="400" alt="1v1.LOL"
+                 src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>1v1.LOL — 400×400</text></svg>">
+          </div>
+          <div class="card-body">
+            <div class="title">1v1.LOL</div>
+            <div class="pill">Shooter</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>New</h2>
+      <div class="row">
+        <a class="card" href="/g/stack-ball/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Stack Ball"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23121212'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Stack Ball — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Stack Ball</div><div class="pill">Arcade</div></div>
+        </a>
+        <a class="card" href="/g/retro-bowl/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Retro Bowl"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Retro Bowl — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Retro Bowl</div><div class="pill">Sports</div></div>
+        </a>
+        <a class="card" href="/g/polytrack/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Polytrack"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Polytrack — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Polytrack</div><div class="pill">Racing</div></div>
+        </a>
+        <a class="card" href="/g/cell-machine/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Cell Machine"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23141414'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='%23ffffff'>Cell Machine — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Cell Machine</div><div class="pill">Puzzle</div></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2-Player & Multiplayer</h2>
+      <div class="row">
+        <a class="card" href="/g/rooftop-snipers/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Rooftop Snipers"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23111111'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Rooftop Snipers — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Rooftop Snipers</div><div class="pill">2-Player</div></div>
+        </a>
+        <a class="card" href="/g/football-legends/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Football Legends"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23121212'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Football Legends — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Football Legends</div><div class="pill">2-Player</div></div>
+        </a>
+        <a class="card" href="/g/smash-karts/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Smash Karts"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23101010'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Smash Karts — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Smash Karts</div><div class="pill">Multiplayer</div></div>
+        </a>
+        <a class="card" href="/g/tag/">
+          <div class="thumb"><img loading="lazy" width="400" height="400" alt="Tag"
+            src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23131313'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='30' fill='%23ffffff'>Tag — 400×400</text></svg>"></div>
+          <div class="card-body"><div class="title">Tag</div><div class="pill">Multiplayer</div></div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot-wrap">
+      <div>© <span id="yr"></span> Arcade Hub. Clean, unblocked fun.</div>
+      <div>
+        <a href="/privacy/" style="color:inherit; text-decoration:none">Privacy</a> ·
+        <a href="/contact/" style="color:inherit; text-decoration:none">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple enhancements (no frameworks)
+    const yrEl = document.getElementById('yr'); if (yrEl) yrEl.textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const nav = document.getElementById('nav'), btn = document.getElementById('menuBtn');
+    if (btn) btn.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // Random link (add your actual game slugs here)
+    const randomLink = document.getElementById('randomLink');
+    const gameSlugs = [
+      "/g/slope/", "/g/drift-boss/", "/g/bitlife/", "/g/1v1-lol/",
+      "/g/stack-ball/", "/g/retro-bowl/", "/g/polytrack/", "/g/cell-machine/",
+      "/g/rooftop-snipers/", "/g/football-legends/", "/g/smash-karts/", "/g/tag/"
+    ];
+    if (randomLink) randomLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const slug = gameSlugs[Math.floor(Math.random()*gameSlugs.length)];
+      window.location.href = slug;
+    });
+
+    // Reduce motion for users that prefer it (softens hover lift)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const style = document.createElement('style');
+      style.textContent = '.card{transition:none !important} nav a{transition:none !important}';
+      document.head.appendChild(style);
+    }
+  </script>
+</body>
+</html>
